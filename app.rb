@@ -2,11 +2,14 @@ require 'rubygems'
 require 'sinatra'
 require 'mongo_mapper';
 require 'json/ext'
+require 'digest/md5'
+
+Dir[File.dirname(__FILE__) + "/config/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
+Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
 
 configure do
-  MongoMapper.connection = Mongo::Connection.new('localhost',27017, :pool_size => 5, :timeout => 5)
-  MongoMapper.database = 'chronicle'
+  MongoConfig.configure
 end
 
 enable :sessions
