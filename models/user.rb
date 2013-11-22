@@ -3,4 +3,5 @@ class User
 
   key :username, String
   key :hashed_password, String
+  timestamps!
 end
