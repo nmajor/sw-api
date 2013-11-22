@@ -11,7 +11,7 @@ end
 
 enable :sessions
 
-get '/'
+get '/' do
   "Hello Ogden StartupWeekend #swogden"
 end
 
@@ -27,7 +27,7 @@ post '/user' do
 end
 
 post '/login' do
-  user = User.first(:username => params[:username], :password => params[:password]);
+  user = User.first(:username => params[:username], :password => params[:password])
   unless user.nil?
     session[:id] = user.id
   end
