@@ -11,6 +11,10 @@ end
 
 enable :sessions
 
+get '/'
+  "Hello Ogden StartupWeekend #swogden"
+end
+
 # User methods
 post '/user' do
   content_type :json
