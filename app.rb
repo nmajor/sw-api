@@ -18,6 +18,8 @@ enable :sessions
 #### VIEW ROUTES
 get '/' do
   if session[:id]
+  	# This is wrong...need to fix
+  	@chronicles = Subject.all(:creator_id => session[:id])
     erb :index
   else
   	erb :login
