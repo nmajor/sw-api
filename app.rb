@@ -59,13 +59,14 @@ end
 post '/video' do
   video_url = upload(params[:content]['file'][:filename], params[:content]['file'][:tempfile])
   if video_url
-  video = Video.new({
-    :name => params[:name],
-    :description => params[:description],
-    :user_id => session[:user_id],
-    :subject_id => params[:subject_id],
-    :url => url
-  })
+    video = Video.new({
+      :name => params[:name],
+      :description => params[:description],
+      :user_id => session[:user_id],
+      :subject_id => params[:subject_id],
+      :url => url
+    })
+  end
   video.save
   video.to_json
 end
