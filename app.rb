@@ -64,6 +64,12 @@ get 'subject/:id/video/new' do
   erb :video_new
 end
 
+get '/select_friends' do
+  @facebook = Koala::Facebook::GraphAPI.new(session["access_token"]);
+  @friends = @facebook.get_connections('me', 'friends')
+  erb :select_friends
+end
+
 #### API METHODS
 
 # Video methods
