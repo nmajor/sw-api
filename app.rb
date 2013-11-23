@@ -46,7 +46,10 @@ end
 #### VIEW ROUTES
 get '/' do
   if session['access_token']
-    "<h1>hey</h1>#{session['access_token']} #{session['access_token'].to_json} #{session['access_token'].to_s}"
+        graph = Koala::Facebook::GraphAPI.new(session["access_token"])
+            current_fb_user = graph.get_object("me")
+                user = User.first( :fb_id => current_fb_user["id"].to_i )
+    "<h1>hey</h1>#{session['access_token']} #{user.to_json} #{session['access_token'].to_s}"
       #@current_user = get_current_user
       #erb :home
 
