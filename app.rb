@@ -17,7 +17,13 @@ enable :sessions
 
 #### VIEW ROUTES
 get '/' do
-  erb :index, :layout => :layout
+  if session[:id]
+  	# This is wrong...need to fix
+  	@chronicles = Subject.all(:creator_id => session[:id])
+    erb :index
+  else
+  	erb :login
+  end
 end
 
 get '/video/new' do
