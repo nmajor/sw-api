@@ -48,8 +48,8 @@ get '/' do
   if session['access_token']
         graph = Koala::Facebook::GraphAPI.new(session["access_token"])
             current_fb_user = graph.get_object("me")
-                user = User.first( :fb_id => current_fb_user["id"].to_i )
-    "<h1>hey</h1>#{session['access_token']} #{user.to_json} #{session['access_token'].to_s} #{current_fb_user} #{current_fb_user['id'].to_i}"
+                user = User.first( :fb_id => current_fb_user['id'].to_i )
+    "<h1>hey</h1> #{user.to_json} #{session['access_token'].to_s} #{current_fb_user} #{current_fb_user['id'].to_i}"
       #@current_user = get_current_user
       #erb :home
 

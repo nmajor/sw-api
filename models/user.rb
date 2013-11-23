@@ -1,6 +1,5 @@
 class User
   include MongoMapper::Document
-
   key :fb_id, Integer
   key :avatar, String
   key :name, String
