@@ -47,7 +47,7 @@ end
 get '/' do
   if session['access_token']
       @current_user = get_current_user
-      erb :home
+      #erb :home
 
       # do some stuff with facebook here
       # for example:
