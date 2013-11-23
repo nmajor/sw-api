@@ -27,3 +27,4 @@ a { color: #747474; }
 .add_connection { border: none !important; }
 .head.connection_head { text-align: center; }
 .connection_form { margin: auto; padding: 0.5em 1em; text-align: center; }
+.add_to_chronicle { margin: 1.5em 2em; } 

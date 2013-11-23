@@ -2,7 +2,7 @@
 <img class="chronicle_image" src="<%= @user.avatar %>">
 <h3><%= @user.name %></h3>
 </div>
-<div><a href="/chronicle/<%= @user.fb_id %>/new">Add to <%= @user.name %>'s Chronicle</a></div>
+<div class="add_to_chronicle"><a class="btn btn-primary btn-block" href="/chronicle/<%= @user.fb_id %>/new">Add to <%= @user.name %>'s Chronicle</a></div>
 <% @user.video.each do |video| %>
   <%= video.desc %>
   <%= video.url %>
