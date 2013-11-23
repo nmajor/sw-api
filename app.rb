@@ -10,7 +10,7 @@ Dir[File.dirname(__FILE__) + "/config/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
 require './helpers.rb'
 
-
+#### FACEBOOK AUTH
 # facebook api info
 APP_ID     = 765250496833974
 APP_SECRET = '8f969c5891556b3bbcb337a7f7e18b43'
@@ -20,8 +20,6 @@ configure do
 end
 
 enable :sessions
-
-#### VIEW ROUTES
 
 #facebook graph
 get '/' do
@@ -59,13 +57,25 @@ get '/callback' do
   redirect '/'
 end
 
-get 'subject/:id/video/new' do
+#### VIEW ROUTES
+get '/user/:id/video/new' do
   @title = 'New Video'
   erb :video_new
 end
 
-#### API METHODS
+get '/user/friends' do
+  @graph = Koala::Facebook::API.new(session['access_token'])
+  @friends = @graph.get_connections("me", "friends")
+  erb :user_friends
+end
 
+get '/connection/new/:id' do
+  @graph = Koala::Facebook::API.new(session['access_token'])
+  @friend = @graph.get_object(params[:id])
+  erb :connection_new
+end
+
+#### API METHODS
 # Video methods
 get '/video' do
   content_type :json
@@ -108,4 +118,9 @@ post '/subject' do
   })
   subject.save
   subject.to_json
+end
+
+post '/connection' do
+  connection = Connection.new({
+  })
 end

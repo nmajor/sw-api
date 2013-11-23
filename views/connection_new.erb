@@ -1,0 +1,6 @@
+<img src="<%= @graph.get_picture(@friend['id'], :type => "large") %>" >
+Connect to <%= @friend["name"] %>'s Chronicle?
+<form action="/connection" method="POST">
+  <input type="hidden" name="id" value="<%= @friend['id'] %>">
+  <input type="submit">
+</form>
