@@ -78,7 +78,7 @@ post '/video' do
       :url => video_url
     })
   end
-  video.save
+  #video.save
   video.to_json
 end
 
