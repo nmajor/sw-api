@@ -63,19 +63,7 @@ get '/user/:id/video/new' do
   erb :video_new
 end
 
-get '/user/friends' do
-  @graph = Koala::Facebook::API.new(session['access_token'])
-  @friends = @graph.get_connections("me", "friends")
-  erb :user_friends
-end
 
-get '/connection/new/:id' do
-  @graph = Koala::Facebook::API.new(session['access_token'])
-  @friend = @graph.get_object(params[:id])
-  erb :connection_new
-end
-
-#### API METHODS
 # Video methods
 get '/video' do
   content_type :json
@@ -102,6 +90,7 @@ post '/video' do
   video.save
   video.to_json
 end
+<<<<<<< HEAD
 
 # Subjects
 get '/subject/:id' do
@@ -124,3 +113,5 @@ post '/connection' do
   connection = Connection.new({
   })
 end
+=======
+>>>>>>> aed4acc4d0265705c1de6132afe6871531c16c75
