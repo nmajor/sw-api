@@ -59,7 +59,7 @@ get '/callback' do
   redirect '/'
 end
 
-get '/video/new' do
+get 'subject/:id/video/new' do
   @title = 'New Video'
   erb :video_new
 end
