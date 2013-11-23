@@ -44,15 +44,15 @@ get '/logout' do
 end
 
 # Video methods
-get '/video/?' do
+get '/video' do
   content_type :json
   videos = Video.all(:user_id => session[:id])
   videos.to_json
 end
 
-get '/video/:id/?' do
+get '/video/:id' do
   content_type :json
-  video = Video.find(params[:id], :user_id => session[:id])
+  video = Video.first(:id => params[:id], :user_id => session[:id])
   video.to_json
 end
 
@@ -68,4 +68,21 @@ post '/video' do
   })
   video.save
   video.to_json
+end
+
+# Subjects
+get '/subject/:id' do
+  content_type :json
+  subject = Subject.first(:id => params[:id])
+  subject.to_json
+end
+
+post '/subject' do
+  subject = Subject.new({
+    :first_name => params[:first_name],
+    :last_name => params[:last_name],
+    :creator_id => session[:id]
+  })
+  subject.save
+  subject.to_json
 end
