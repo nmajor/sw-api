@@ -5,7 +5,7 @@ class User
   key :name, String
   key :child_user_ids, Array, :typecast => 'ObjectId'
   many :child_users, :in => :child_user_ids, :class_name => 'User'
-  many :video
+  #many :video
   timestamps!
 
   def parent_users
