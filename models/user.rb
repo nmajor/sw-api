@@ -3,7 +3,7 @@ class User
   key :fb_id, Integer
   key :avatar, String
   key :name, String
-  key :child_user_ids, Array, :typecast => 'ObjectId'
+  #key :child_user_ids, Array, :typecast => 'ObjectId'
   #many :child_users, :in => :child_user_ids, :class_name => 'User'
   #many :video
   timestamps!
