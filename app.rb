@@ -98,13 +98,13 @@ get '/video/:id' do
 end
 
 post '/video' do
-  video_url = upload(params[:file][:filename], params[:file][:tempfile])
   user = get_user(params[:fb_id])
-  if video_url
+  video_name = upload(params[:file][:filename]+user.fb_id, params[:file][:tempfile])
+  if video_name
     video = Video.new({
       :desc => params[:desc],
       :subject_id => '',
-      :url => video_url
+      :name => video_name
     })
   end
   video.user = user
