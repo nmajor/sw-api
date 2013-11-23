@@ -69,7 +69,7 @@ post '/video' do
       :description => params[:description],
       :user_id => '',
       :subject_id => '',
-      :url => url
+      :url => video_url
     })
   end
   video.save
