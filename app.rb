@@ -4,10 +4,16 @@ require 'mongo_mapper'
 require 'json/ext'
 require 'digest/md5'
 require "aws/s3"
+require 'koala'
 
 Dir[File.dirname(__FILE__) + "/config/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
 require './helpers.rb'
+
+
+# facebook api info
+APP_ID     = 765250496833974
+APP_SECRET = '8f969c5891556b3bbcb337a7f7e18b43'
 
 configure do
   MongoConfig.configure
@@ -16,14 +22,41 @@ end
 enable :sessions
 
 #### VIEW ROUTES
+
+#facebook graph
 get '/' do
-  if session[:id]
-  	# This is wrong...need to fix
-  	@chronicles = Subject.all(:creator_id => session[:id])
-    erb :index
-  else
-  	erb :login
-  end
+  if session['access_token']
+      'You are logged in! <a href="/logout">Logout</a>'
+      # do some stuff with facebook here
+      # for example:
+      # @graph = Koala::Facebook::GraphAPI.new(session["access_token"])
+      # publish to your wall (if you have the permissions)
+      # @graph.put_wall_post("I'm posting from my new cool app!")
+      # or publish to someone else (if you have the permissions too ;) )
+      # @graph.put_wall_post("Checkout my new cool app!", {}, "someoneelse's id")
+    else
+      '<a href="/login">Login</a>'
+    end
+end
+
+#facebook login/logout
+get '/login' do
+  # generate a new oauth object with your app data and your callback url
+  session['oauth'] = Koala::Facebook::OAuth.new(APP_ID, APP_SECRET, "#{request.base_url}/callback")
+  # redirect to facebook to get your code
+  redirect session['oauth'].url_for_oauth_code()
+end
+
+get '/logout' do
+  session['oauth'] = nil
+  session['access_token'] = nil
+  redirect '/'
+end
+
+get '/callback' do
+  #get the access token from facebook with your code
+  session['access_token'] = session['oauth'].get_access_token(params[:code])
+  redirect '/'
 end
 
 get '/video/new' do
@@ -32,28 +65,6 @@ get '/video/new' do
 end
 
 #### API METHODS
-# User methods
-post '/user' do
-  content_type :json
-  user = User.new({
-  	:username => params[:username],
-  	:password => params[:password]
-  	});
-  user.save
-  user.to_json
-end
-
-post '/login' do
-  user = User.first(:username => params[:username], :password => params[:password])
-  unless user.nil?
-    session[:id] = user.id
-  end
-  user.id.to_json
-end
-
-get '/logout' do
-  session.clear
-end
 
 # Video methods
 get '/video' do
