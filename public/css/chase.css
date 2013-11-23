@@ -6,7 +6,17 @@ html, #centered{
 	border: 0;
 }
 #centered{
+	margin: auto;
 	margin-top:50px;
-	margin-left:25%;
-	width:50%;
+	width: 50%;
+	max-width: 192px;
+}
+
+.co_name {
+	text-align: center;
+	font-size: 24px;
+}
+
+.highlight {
+	color: #FF6157;
 }
