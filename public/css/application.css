@@ -25,3 +25,5 @@ a { color: #747474; }
 .chronicle_link { display: inline-block; text-align: center; margin: 2em 1em;}
 .chronicle_link img { margin-bottom: 0.5em; }
 .add_connection { border: none !important; }
+.head.connection_head { text-align: center; }
+.connection_form { margin: auto; padding: 0.5em 1em; text-align: center; }
