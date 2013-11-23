@@ -16,7 +16,11 @@ enable :sessions
 
 #### VIEW ROUTES
 get '/' do
-  erb :index, :layout => :layout
+  if session[:id]
+    erb :index
+  else
+  	erb :login
+  end
 end
 
 get '/video/new' do
