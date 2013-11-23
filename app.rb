@@ -1,8 +1,9 @@
 require 'rubygems'
 require 'sinatra'
-require 'mongo_mapper';
+require 'mongo_mapper'
 require 'json/ext'
 require 'digest/md5'
+require "aws/s3"
 
 Dir[File.dirname(__FILE__) + "/config/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
@@ -25,7 +26,7 @@ end
 
 get '/video/new' do
   @title = 'New Video'
-  erb new_video
+  erb :video_new
 end
 
 #### API METHODS
