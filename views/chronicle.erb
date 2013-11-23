@@ -1,13 +1,19 @@
 <div class="head">
+<a href="/" class="white">
+  <span class="glyphicon white glyphicon-chevron-left"></span>
+</a>
+
 <img class="chronicle_image" src="<%= @user.avatar %>">
 <h3><%= @user.name %></h3>
 </div>
 <div class="add_to_chronicle"><a class="btn btn-primary btn-block" href="/chronicle/<%= @user.fb_id %>/new">Add to <%= @user.name %>'s Chronicle</a></div>
+<div class="container">
 <% @user.video.each do |video| %>
+	<div class="col-xs-12 col-sm-6">
+  <video id="home_video" class="video-js vjs-default-skin" controls preload="auto" data-setup="{}">
+  <source src="<%= video.url %>" type='video/mp4' />
+  </video>
   <%= video.desc %>
-  <%= video.url %>
+</div>
 <% end %>
-
-<video id="home_video" controls preload="auto" data-setup="{}">
-<source src="http://d3dlokrrcg43yp.cloudfront.net/VIDEO0023.mp4" type='video/mp4' />
-</video>
+</div>
