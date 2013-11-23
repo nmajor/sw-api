@@ -46,7 +46,7 @@ end
 #### VIEW ROUTES
 get '/' do
   if session['access_token']
-    '<h1>hey</h1>'
+    "<h1>hey</h1>#{session['access_token']} #{session['access_token'].to_json} #{session['access_token'].to_s}"
       #@current_user = get_current_user
       #erb :home
 
