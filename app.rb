@@ -16,7 +16,7 @@ enable :sessions
 
 #### VIEW ROUTES
 get '/' do
-  "Hello Ogden StartupWeekend #swogden"
+  erb :index, :layout => :layout
 end
 
 get '/video/new' do
