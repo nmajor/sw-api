@@ -13,8 +13,7 @@ helpers do
       bucket,
       :access => :public_read
     )
-    url = "https://#{bucket}.s3.amazonaws.com/#{filename}"
-    return url
+    return filename
   end
 
   def get_current_user
