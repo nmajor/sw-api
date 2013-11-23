@@ -19,6 +19,11 @@ get '/' do
   "Hello Ogden StartupWeekend #swogden"
 end
 
+get '/video/new' do
+  @title = 'New Video'
+  erb new_video
+end
+
 #### API METHODS
 # User methods
 post '/user' do
@@ -60,10 +65,9 @@ post '/video' do
   video_url = upload(params[:content]['file'][:filename], params[:content]['file'][:tempfile])
   if video_url
     video = Video.new({
-      :name => params[:name],
       :description => params[:description],
-      :user_id => session[:user_id],
-      :subject_id => params[:subject_id],
+      :user_id => '',
+      :subject_id => '',
       :url => url
     })
   end
