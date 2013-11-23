@@ -35,7 +35,6 @@ helpers do
     fb_user = graph.get_object(id)
     user = User.first( :fb_id => id.to_i )
     return user if user
-
     user = User.new({
       :fb_id => fb_user["id"],
       :avatar => graph.get_picture(fb_user["id"], :type => "large"),

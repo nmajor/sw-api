@@ -118,7 +118,7 @@ end
 post '/connection' do
   connection_user = get_user(params[:fb_id])
   current_user = get_current_user
-  current_user.child_user_ids << connection_user.id
+  #current_user.child_user_ids << connection_user.id
   current_user.save
 
   redirect '/'
