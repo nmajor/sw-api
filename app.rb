@@ -6,7 +6,7 @@ require 'digest/md5'
 
 Dir[File.dirname(__FILE__) + "/config/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
-require 'helpers.rb'
+require './helpers.rb'
 
 configure do
   MongoConfig.configure
