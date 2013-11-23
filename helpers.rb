@@ -34,7 +34,6 @@ helpers do
     graph = Koala::Facebook::GraphAPI.new(session["access_token"])
     fb_user = graph.get_object(id)
     user = User.first( :fb_id => id.to_i )
-    user = User.find_by_id( :id => id ) if ! user
     return user if user
 
     user = User.new({
