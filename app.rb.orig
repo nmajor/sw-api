@@ -63,11 +63,21 @@ get '/user/:id/video/new' do
   erb :video_new
 end
 
+<<<<<<< HEAD
 get '/user/friends' do
   @graph = Koala::Facebook::API.new(session['access_token'])
   @friends = @graph.get_connections("me", "friends")
   erb :user_friends
 end
+=======
+get '/select_friends' do
+  @facebook = Koala::Facebook::GraphAPI.new(session["access_token"]);
+  @friends = @facebook.get_connections('me', 'friends')
+  erb :select_friends
+end
+
+#### API METHODS
+>>>>>>> aed4acc4d0265705c1de6132afe6871531c16c75
 
 get '/connection/new/:id' do
   @graph = Koala::Facebook::API.new(session['access_token'])
@@ -75,6 +85,7 @@ get '/connection/new/:id' do
   erb :connection_new
 end
 
+#### API METHODS
 # Video methods
 get '/video' do
   content_type :json
@@ -101,6 +112,7 @@ post '/video' do
   video.save
   video.to_json
 end
+<<<<<<< HEAD
 
 # Subjects
 get '/subject/:id' do
@@ -123,3 +135,5 @@ post '/connection' do
   connection = Connection.new({
   })
 end
+=======
+>>>>>>> aed4acc4d0265705c1de6132afe6871531c16c75
