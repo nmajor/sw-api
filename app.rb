@@ -99,7 +99,7 @@ end
 
 post '/video' do
   user = get_user(params[:fb_id])
-  video_name = upload(params[:file][:filename]+user.fb_id, params[:file][:tempfile])
+  video_name = upload(params[:file][:filename] + user.fb_id.to_s, params[:file][:tempfile])
   if video_name
     video = Video.new({
       :desc => params[:desc],
