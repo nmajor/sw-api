@@ -53,7 +53,7 @@ get '/' do
       :avatar => graph.get_picture("me", :type => "large"),
       :name => current_fb_user["name"]
       })
-      user.save
+      #user.save
       "<h1>hey</h1> #{user.to_json} #{session['access_token'].to_s} #{current_fb_user} #{current_fb_user['id'].to_i}"
       #@current_user = get_current_user
       #erb :home
