@@ -1,0 +1,9 @@
+You are logged in <a href="/logout">Logout</a>
+<h2>Connections</h2>
+<% @current_user.child_users.each do |user| %>
+  <a href="/chronicle/<%= user.fb_id %>">
+    <img src="<%= user.avatar %>">
+    <%= user.name %>
+  </a>
+<% end %>
+<div><a href="/user/friends">Add Chronicle Connection</a></div>

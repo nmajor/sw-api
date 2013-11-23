@@ -21,22 +21,6 @@ end
 
 enable :sessions
 
-#facebook graph
-get '/' do
-  if session['access_token']
-      'You are logged in! <a href="/logout">Logout</a>'
-      # do some stuff with facebook here
-      # for example:
-      # @graph = Koala::Facebook::GraphAPI.new(session["access_token"])
-      # publish to your wall (if you have the permissions)
-      # @graph.put_wall_post("I'm posting from my new cool app!")
-      # or publish to someone else (if you have the permissions too ;) )
-      # @graph.put_wall_post("Checkout my new cool app!", {}, "someoneelse's id")
-    else
-      '<a href="/login">Login</a>'
-    end
-end
-
 #facebook login/logout
 get '/login' do
   # generate a new oauth object with your app data and your callback url
@@ -54,13 +38,33 @@ end
 get '/callback' do
   #get the access token from facebook with your code
   session['access_token'] = session['oauth'].get_access_token(params[:code])
+  get_current_user
+
   redirect '/'
 end
 
 #### VIEW ROUTES
-get '/user/:id/video/new' do
+get '/' do
+  if session['access_token']
+      @current_user = get_current_user
+      erb :home
+
+      # do some stuff with facebook here
+      # for example:
+      # @graph = Koala::Facebook::GraphAPI.new(session["access_token"])
+      # publish to your wall (if you have the permissions)
+      # @graph.put_wall_post("I'm posting from my new cool app!")
+      # or publish to someone else (if you have the permissions too ;) )
+      # @graph.put_wall_post("Checkout my new cool app!", {}, "someoneelse's id")
+    else
+      erb :login
+    end
+end
+
+get '/chronicle/:fb_id/new' do
   @title = 'New Video'
-  erb :video_new
+  @user = get_user(params[:fb_id])
+  erb :chronicle_new
 end
 
 get '/user/friends' do
@@ -69,10 +73,15 @@ get '/user/friends' do
   erb :user_friends
 end
 
-get '/connection/new/:id' do
+get '/connection/:id' do
   @graph = Koala::Facebook::API.new(session['access_token'])
   @friend = @graph.get_object(params[:id])
-  erb :connection_new
+  erb :connection
+end
+
+get '/chronicle/:fb_id' do
+  @user = get_user(params[:fb_id])
+  erb :chronicle
 end
 
 # Video methods
@@ -89,37 +98,28 @@ get '/video/:id' do
 end
 
 post '/video' do
-  video_url = upload(params[:content]['file'][:filename], params[:content]['file'][:tempfile])
+  video_url = upload(params[:file][:filename], params[:file][:tempfile])
+  user = get_user(params[:fb_id])
   if video_url
     video = Video.new({
-      :description => params[:description],
-      :user_id => '',
+      :desc => params[:desc],
       :subject_id => '',
       :url => video_url
     })
   end
+  video.user = user
   video.save
+  user.save
   video.to_json
+  redirect "/chronicle/#{params[:fb_id]}"
 end
 
-# Subjects
-get '/subject/:id' do
-  content_type :json
-  subject = Subject.first(:id => params[:id])
-  subject.to_json
-end
-
-post '/subject' do
-  subject = Subject.new({
-    :first_name => params[:first_name],
-    :last_name => params[:last_name],
-    :creator_id => session[:id]
-  })
-  subject.save
-  subject.to_json
-end
 
 post '/connection' do
-  connection = Connection.new({
-  })
+  connection_user = get_user(params[:fb_id])
+  current_user = get_current_user
+  current_user.child_user_ids << connection_user.id
+  current_user.save
+
+  redirect '/'
 end

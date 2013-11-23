@@ -1,6 +1,6 @@
 <h2>hey</h2>
 <% @friends[0..10].each do |friend| %>
-  <a href="/connection/new/<%= friend['id'] %>">
+  <a href="/connection/<%= friend['id'] %>">
     <%= friend['name'] %>
     <img src="<%= @graph.get_picture(friend['id'], :type => 'normal') %>">
   </a>

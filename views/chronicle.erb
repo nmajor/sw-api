@@ -1,0 +1,8 @@
+<h2>hey</h2>
+<img src="<%= @user.avatar %>">
+<%= @user.name %>
+<div><a href="/chronicle/<%= @user.fb_id %>/new">Add to <%= @user.name %>'s Chronicle</a></div>
+<% @user.video.each do |video| %>
+  <%= video.desc %>
+  <%= video.url %>
+<% end %>
