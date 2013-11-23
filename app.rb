@@ -92,20 +92,3 @@ post '/video' do
   video.save
   video.to_json
 end
-
-# Subjects
-get '/subject/:id' do
-  content_type :json
-  subject = Subject.first(:id => params[:id])
-  subject.to_json
-end
-
-post '/subject' do
-  subject = Subject.new({
-    :first_name => params[:first_name],
-    :last_name => params[:last_name],
-    :creator_id => session[:id]
-  })
-  subject.save
-  subject.to_json
-end
