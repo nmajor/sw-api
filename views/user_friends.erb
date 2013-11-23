@@ -1,7 +1,7 @@
-<h2>hey</h2>
+<div class="head"><h3>Connect to a Chronicle</h3></div>
 <% @friends[0..10].each do |friend| %>
-  <a href="/connection/<%= friend['id'] %>">
-    <%= friend['name'] %>
-    <img src="<%= @graph.get_picture(friend['id'], :type => 'normal') %>">
+  <a class="chronicle_link" href="/connection/<%= friend['id'] %>">
+    <img class="chronicle_image" src="<%= @graph.get_picture(friend['id'], :type => 'normal') %>">
+    <div><%= friend['name'] %></div>
   </a>
 <% end %>
