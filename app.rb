@@ -46,7 +46,8 @@ end
 #### VIEW ROUTES
 get '/' do
   if session['access_token']
-      @current_user = get_current_user
+    '<h1>hey</h1>'
+      #@current_user = get_current_user
       #erb :home
 
       # do some stuff with facebook here
